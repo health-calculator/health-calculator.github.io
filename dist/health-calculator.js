@@ -32,24 +32,31 @@ Date Created 		: March 8 2016
 		var temp = this.valueOf() - Math.trunc(this.valueOf());
 		return Math.round(temp * 100);
 	};
+
 	function _concatDecimal(num1, num2){
 		// A cheat solution i think
 		return parseFloat(num1+"."+num2);
-	};
+	}
+
 	function _calculate(inputHeight, inputWeight){
 			// Height in Feet
-			var feet = Math.trunc( inputHeight);
-			var inch = (parseFloat( inputHeight ).getDecimalPart()) / 12;
+			var feet = Math.trunc( inputHeight );
+			var inch = ( parseFloat( inputHeight ).getDecimalPart() ) / 12;
 			var height = _concatDecimal(feet, inch);
 
 			height = height * height;
-			console.log("Height "+ height);
 			// Weight in pounds
 			var weight = parseFloat(inputWeight) * 4.88;
-			console.log("Weight "+ weight);
-
-			console.log("BMI "+weight/height);
 			return weight/height;
+	}
+	function _getCategory(bmi){
+		 if( bmi < 18.5 ) return "Underweight";					// Below 18.5
+		 if( bmi > 18.5 && bmi < 24.9) return "Normal weight"; 	// between 18-24
+		 if( bmi > 25.0 && bmi < 29.9) return "Overweight"; 	// between 25-29
+		 if( bmi > 30.0 && bmi < 34.9) return "Obese";			//	between 30-35
+		 else{
+		 	return "uncategorized";
+		 }
 	}
 
 	Plugin.prototype = {
@@ -65,11 +72,14 @@ Date Created 		: March 8 2016
 			var containerBody 	= $("<div class='hc-body panel-body'></div>");
 			var formGroupHeight = $("<div class='form-group'><input class='hc-height form-control' type='number' placeholder='Height'></div>");
 			var formGroupWeight = $("<div class='form-group'><input class='hc-weight form-control' type='number' placeholder='Weight'></div>");
-			var formGroupButton = $("<div class='form-group'><a href='#' class='hc-calculate btn btn-success'>Calculate</a><span class='hc-result pull-right'></span></div>");
+			var formGroupButton = $("<div class='form-group'><a href='#' class='hc-calculate btn btn-success'>Calculate</a></div>");
+			var formGroupResult = $("<div class='form-group'><span class='hc-result-category pulll-left'></span> <span class='hc-result-calculation pull-right'></span></div>");
 			var form = $("<div class='form'></div>");
+
 			form.append(formGroupHeight);
 			form.append(formGroupWeight);
 			form.append(formGroupButton);
+			form.append(formGroupResult);
 			containerBody.append(form);
 
 			container.addClass('panel panel-default');
@@ -84,17 +94,17 @@ Date Created 		: March 8 2016
 		attachListener: function(){
 			// CALL CLICK
 				$('.hc-calculate').on('click', function(){
-					var result = _calculate( $('.hc-height').val(), $('.hc-weight').val() );
-					$('.hc-result').html(result);
-
+					this.resultCalculation = _calculate( $('.hc-height').val(), $('.hc-weight').val() );
+					this.resultBmiCategory = _getCategory( this.resultCalculation );
+					$('.hc-result-calculation').html(this.resultCalculation);
+					$('.hc-result-category').html(this.resultBmiCategory);
 				});
 				// CALL ERROR IF NOT VALID INPUTS
 
 		},
 		error: function(message){
-			var containerBody = $(this.element).find('.hc-body');
+			var containerBody = $(this.elemwent).find('.hc-body');
 			var error = $('<div class="hc-error alert alert-danger" role="alert">'+message+'</div>');
-
 			containerBody.append(error);
 		},
 		success: function(){
