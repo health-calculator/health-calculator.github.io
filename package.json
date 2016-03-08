@@ -1,0 +1,19 @@
+{
+  "name": "health-calculator",
+  "version": "0.0.1",
+  "description": "health calculator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malkio/health-calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/malkio/health-calculator/issues"
+  },
+  "homepage": "https://github.com/malkio/health-calculator#readme"
+}

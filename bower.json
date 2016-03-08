@@ -1,0 +1,29 @@
+{
+  "name": "health-calculator",
+  "description": "health calculator",
+  "main": "index.js",
+  "authors": [
+    "malkio"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "health",
+    "calculator"
+  ],
+  "homepage": "https://github.com/malkio/health-calculator",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "jasmine-core": "jasmine#^2.4.1",
+    "jasmine-jquery": "^2.1.1",
+    "jquery": "^2.2.1"
+  }
+}
