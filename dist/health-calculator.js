@@ -63,8 +63,6 @@ Date Created 		: March 8 2016
 		init: function () {
 			this.build();
 			this.attachListener();
-
-			this.error(this.options.errorMessage);
 		},
 		build: function(){
 			var container = $(this.element);
@@ -93,25 +91,29 @@ Date Created 		: March 8 2016
 		},
 		attachListener: function(){
 			// CALL CLICK
-				$('.hc-calculate').on('click', function(){
-					this.resultCalculation = _calculate( $('.hc-height').val(), $('.hc-weight').val() );
-					this.resultBmiCategory = _getCategory( this.resultCalculation );
-					$('.hc-result-calculation').html(this.resultCalculation);
-					$('.hc-result-category').html(this.resultBmiCategory);
-				});
-				// CALL ERROR IF NOT VALID INPUTS
+			var _plugin = this;
+			function error() {
+				console.log("error");
+				$('.hc-result-calculation').html("");
+				$('.hc-result-category').html("");
+				$('.hc-body').append('<div class="hc-error alert alert-danger">'+_plugin.options.errorMessage+'</div>');
+			}
+			function success() {
+				$('.hc-error').remove();
+				$('.hc-result-calculation').html(_plugin.resultCalculation);
+				$('.hc-result-category').html(_plugin.resultBmiCategory);
+			}
 
-		},
-		error: function(message){
-			var containerBody = $(this.elemwent).find('.hc-body');
-			var error = $('<div class="hc-error alert alert-danger" role="alert">'+message+'</div>');
-			containerBody.append(error);
-		},
-		success: function(){
-			var container = $(this.element);
-			container.find('.hc-error').remove();
-		}
+			$('.hc-calculate').on('click', function(){
+				var inputHeight = $('.hc-height').val();
+				var inputWeight = $('.hc-weight').val();
 
+				_plugin.resultCalculation = _calculate( inputHeight , inputWeight );
+				_plugin.resultBmiCategory = _getCategory( _plugin.resultCalculation );
+				if( inputHeight == "" || inputWeight == "" ) error();
+				else success();
+			});
+		},
 	};
 
 	// A lightweight plugin wrapper around the constructor,
