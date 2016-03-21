@@ -125,7 +125,6 @@ Date Created 		: March 8 2016
 			}
 		});
 	};
-	console.log("hello world");
 
 
 })(jQuery, window, document, undefined);
