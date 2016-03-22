@@ -16,7 +16,6 @@ Date Created 		: March 8 2016
 
 	// Plugin Constructor
 	function Plugin( element, type ,options ){
-
 		this.element = element;
 
 		// Now merge the default options with options
@@ -50,7 +49,7 @@ Date Created 		: March 8 2016
 			var weight = parseFloat(inputWeight) * 4.88;
 			return weight/height;
 	}
-	function _getCategory(bmi){
+	function _getBMIcategory(bmi){
 		 if( bmi < 18.5 ) return "Underweight";					// Below 18.5
 		 if( bmi > 18.5 && bmi < 24.9) return "Normal weight"; 	// between 18-24
 		 if( bmi > 25.0 && bmi < 29.9) return "Overweight"; 	// between 25-29
@@ -66,16 +65,20 @@ Date Created 		: March 8 2016
 			 	this.buildBMI();
 			 	this.attachListener();
 			 }
+			 if(typeof(type) === "string" && (type === "bmi2" || type === "BMI2") ){
+			 	this.buildBMI();
+			 	this.attachListener();
+			 }
 
 		},
 		buildBMI: function(){
 			var container = $(this.element);
-			var containerHeading = $("<div class='hc-heading panel-heading'>"+this.options.panelTitle+"</div>");
-			var containerBody 	= $("<div class='hc-body panel-body'></div>");
-			var formGroupHeight = $("<div class='form-group'><input class='hc-height form-control' type='number' placeholder='Height'></div>");
-			var formGroupWeight = $("<div class='form-group'><input class='hc-weight form-control' type='number' placeholder='Weight'></div>");
-			var formGroupButton = $("<div class='form-group'><a href='#' class='hc-calculate btn btn-success'>Calculate</a></div>");
-			var formGroupResult = $("<div class='form-group'><span class='hc-result-category pulll-left'></span> <span class='hc-result-calculation pull-right'></span></div>");
+			var containerHeading = 	$("<div class='hc-heading panel-heading'>"+this.options.panelTitle+"</div>");
+			var containerBody 	= 	$("<div class='hc-body panel-body'></div>");
+			var formGroupHeight = 	$("<div class='form-group'><input class='hc-height form-control' type='number' placeholder='Height'></div>");
+			var formGroupWeight = 	$("<div class='form-group'><input class='hc-weight form-control' type='number' placeholder='Weight'></div>");
+			var formGroupButton = 	$("<div class='form-group'><a href='#' class='hc-calculate btn btn-success'>Calculate</a></div>");
+			var formGroupResult = 	$("<div class='form-group'><span class='hc-result-category pulll-left'></span> <span class='hc-result-calculation pull-right'></span></div>");
 			var form = $("<div class='form'></div>");
 
 			form.append(formGroupHeight);
@@ -114,7 +117,7 @@ Date Created 		: March 8 2016
 				var inputWeight = _element.find('.hc-weight').val();
 
 				_plugin.resultCalculation = _calculate( inputHeight , inputWeight );
-				_plugin.resultBmiCategory = _getCategory( _plugin.resultCalculation );
+				_plugin.resultBmiCategory = _getBMIcategory( _plugin.resultCalculation );
 				if( inputHeight == "" || inputWeight == "" ) error();
 				else success();
 			});
