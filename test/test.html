@@ -16,14 +16,17 @@
 <script type="text/javascript" src="../dist/health-calculator.js"></script>
 
 <script type="text/javascript">
-$("#element").healthCalculator({
-    propertyName: "a custom value",
+$("#element").healthCalculator('bmi', {
+    panelTitle: "BMI something",
 });
 $("#element2").healthCalculator({
     propertyName: "a custom value",
 });
 
 
+$("#element2").healthCalculator('bmi', {
+	panelTitle: "not bmi something",
+})
 //console.log( $('#element').data('plugin_healthCalculator').success() );
 </script>
 
