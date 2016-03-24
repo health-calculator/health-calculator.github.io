@@ -11,7 +11,9 @@ Date Created 		: March 8 2016
 	var pluginName = "healthCalculator";
 	var defaults = {
 		errorMessage: "Something went wrong",
-		panelTitle: "BMI Calculator"
+		panelTitle: "BMI Calculator",
+		includeTitle: true
+
 	};
 
 	// Plugin Constructor
@@ -90,7 +92,7 @@ Date Created 		: March 8 2016
 			container.addClass('panel panel-default');
 
 			// Attach Heading
-			container.append(containerHeading);
+			if( this.options.includeTitle ) container.append(containerHeading);
 
 			// Attach Body;
 			container.append(containerBody);
